@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         // init constraintLayout
-        constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.gradientbg);
 
         // initializing animation drawable by getting background from constraint layout
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
