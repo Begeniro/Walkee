@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Walkee</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_tracker">Tracker</string>
+    <string name="nav_history">History</string>
+    <string name="nav_account">Account</string>
 </resources>
