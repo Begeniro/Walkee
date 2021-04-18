@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1071262598866",
+    "project_id": "walkee-b22b9",
+    "storage_bucket": "walkee-b22b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071262598866:android:c7c2a096fed58899ad0f0b",
+        "android_client_info": {
+          "package_name": "android.example.walkee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071262598866-niu5rji8kh6dqkh00qmp49e24o7bvaeu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJtOt5x9affzd0vD382nh7h_8zLFcmif0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071262598866-niu5rji8kh6dqkh00qmp49e24o7bvaeu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

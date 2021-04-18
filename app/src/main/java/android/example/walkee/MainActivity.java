@@ -26,6 +26,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mMainFrame=(FrameLayout)findViewById(R.id.mainFrame);
+        mMainNav=(BottomNavigationView)findViewById(R.id.bottNav);
+
+        mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.bottNav :
+                        mMainNav.setItemBackgroundResource(R.color);
+                }
+            }
+        });
+
         getSupportActionBar().hide();
 
         // init constraintLayout
