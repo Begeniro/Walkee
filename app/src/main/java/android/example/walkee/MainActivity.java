@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setFragment(trackerFragment);
         header.setText("Step Tracker");
 
-        //navbar
+        //BottomBar
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
