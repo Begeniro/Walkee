@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         trackerFragment = new TrackerFragment();
 
+        setFragment(trackerFragment);
+        header.setText("Step Tracker");
+
         //navbar
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
