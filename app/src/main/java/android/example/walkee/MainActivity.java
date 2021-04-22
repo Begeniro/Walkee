@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
 
         // setting enter fade animation duration to 5 seconds
-        animationDrawable.setEnterFadeDuration(3000);
+        animationDrawable.setEnterFadeDuration(2000);
 
         // setting exit fade animation duration to 2 seconds
-        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(1500);
 
         mMainFrame=findViewById(R.id.mainFrame);
         mMainNav=findViewById(R.id.bottNav);

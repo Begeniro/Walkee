@@ -3,13 +3,14 @@
     <item
         android:drawable="@drawable/gradient"
         android:duration="3000" />
-<!--    <item-->
-<!--        android:drawable="@drawable/gradient_c"-->
-<!--        android:duration="3000" />-->
+    <item
+        android:drawable="@drawable/gradient_cr"
+        android:duration="2500" />
     <item
         android:drawable="@drawable/gradient_r"
         android:duration="3000" />
-<!--    <item-->
-<!--        android:drawable="@drawable/gradient_cr"-->
-<!--        android:duration="3000" />-->
+    <item
+        android:drawable="@drawable/gradient_c"
+        android:duration="2500" />
+
 </animation-list>
