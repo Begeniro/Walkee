@@ -23,9 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/nav_items"
-        app:itemIconTint="@color/nav_item_colors"
-        app:itemTextColor="@color/nav_item_colors">
+        app:menu="@menu/nav_items">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

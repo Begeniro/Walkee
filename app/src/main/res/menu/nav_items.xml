@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_tracker"
+        android:title="@string/nav_tracker" />
+    <item
+        android:id="@+id/nav_history"
+        android:title="@string/nav_history" />
+    <item
+        android:id="@+id/nav_account"
+        android:title="@string/nav_account" />
+</menu>

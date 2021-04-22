@@ -3,6 +3,8 @@ package android.example.walkee;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
+
     private TrackerFragment trackerFragment;
 
     @Override
@@ -29,14 +32,28 @@ public class MainActivity extends AppCompatActivity {
         mMainFrame=(FrameLayout)findViewById(R.id.mainFrame);
         mMainNav=(BottomNavigationView)findViewById(R.id.bottNav);
 
+        trackerFragment = new TrackerFragment();
+
+        //navbar
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.bottNav :
-                        mMainNav.setItemBackgroundResource(R.color);
+                    case R.id.nav_tracker :
+                        setFragment(trackerFragment);
+                        mMainNav.setItemBackgroundResource(R.color.biru);
+                    case R.id.nav_history :
+                        setFragment(trackerFragment);
+                        mMainNav.setItemBackgroundResource(R.color.biru);
+                    case R.id.nav_account :
+                        setFragment(trackerFragment);
+                        mMainNav.setItemBackgroundResource(R.color.biru);
+                    default :
+                        return false;
                 }
             }
+
+
         });
 
         getSupportActionBar().hide();
@@ -58,17 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
         trackerFragment = new TrackerFragment();
 
-        mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-
-                    default :
-                        return false;
-                }
-
-            }
-        });
     }
 
     @Override
@@ -88,5 +94,12 @@ public class MainActivity extends AppCompatActivity {
             // stop the animation
             animationDrawable.stop();
         }
+    }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.mainFrame, fragment);
+        fragmentTransaction.commit();
+
     }
 }
