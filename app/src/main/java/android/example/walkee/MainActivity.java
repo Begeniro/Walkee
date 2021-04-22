@@ -10,6 +10,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,13 +25,16 @@ public class MainActivity extends AppCompatActivity {
 
     private TrackerFragment trackerFragment;
 
+
+    TextView header;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        header=findViewById(R.id.header);
 
-        mMainFrame=(FrameLayout)findViewById(R.id.mainFrame);
-        mMainNav=(BottomNavigationView)findViewById(R.id.bottNav);
+        mMainFrame=findViewById(R.id.mainFrame);
+        mMainNav=findViewById(R.id.bottNav);
 
         trackerFragment = new TrackerFragment();
 
@@ -41,19 +45,20 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_tracker :
                         setFragment(trackerFragment);
-                        mMainNav.setItemBackgroundResource(R.color.biru);
+                        header.setText("Step Tracker");
+                        return true;
                     case R.id.nav_history :
                         setFragment(trackerFragment);
-                        mMainNav.setItemBackgroundResource(R.color.biru);
+                        header.setText("History");
+                        return true;
                     case R.id.nav_account :
                         setFragment(trackerFragment);
-                        mMainNav.setItemBackgroundResource(R.color.biru);
+                        header.setText("Account");
+                        return true;
                     default :
                         return false;
                 }
             }
-
-
         });
 
         getSupportActionBar().hide();
