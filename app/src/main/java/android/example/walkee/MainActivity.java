@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         accountFragment = new Account();
         setFragment(trackerFragment);
         header.setText("Step Tracker");
-        setFragment(accountFragment);
-        header.setText("Account");
 
         //BottomBar
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
