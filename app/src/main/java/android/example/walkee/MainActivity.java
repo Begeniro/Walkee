@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private AnimationDrawable animationDrawable;
 
     private TrackerFragment trackerFragment;
-
+    private Account accountFragment;
 
     TextView header;
     @Override
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         mMainNav=findViewById(R.id.bottNav);
 
         trackerFragment = new TrackerFragment();
-
+        accountFragment = new Account();
         setFragment(trackerFragment);
         header.setText("Step Tracker");
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         header.setText("History");
                         return true;
                     case R.id.nav_account :
-                        setFragment(trackerFragment);
+                        setFragment(accountFragment);
                         header.setText("Account");
                         return true;
                     default :
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mMainNav=findViewById(R.id.bottNav);
 
         trackerFragment = new TrackerFragment();
+        accountFragment = new Account();
 
     }
 
