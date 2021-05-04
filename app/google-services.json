@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1071262598866",
-    "project_id": "walkee-b22b9",
-    "storage_bucket": "walkee-b22b9.appspot.com"
+    "project_number": "825640105521",
+    "project_id": "walkee-a85ef",
+    "storage_bucket": "walkee-a85ef.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1071262598866:android:c7c2a096fed58899ad0f0b",
+        "mobilesdk_app_id": "1:825640105521:android:0d37abc42cf74135b30710",
         "android_client_info": {
           "package_name": "android.example.walkee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1071262598866-niu5rji8kh6dqkh00qmp49e24o7bvaeu.apps.googleusercontent.com",
+          "client_id": "825640105521-fj87jct1mn27r6r792pkduj71mg0njv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "android.example.walkee",
+            "certificate_hash": "d01e830200eeb413e7147f80820a36ac8de8ae1a"
+          }
+        },
+        {
+          "client_id": "825640105521-8g6m1qdbds5ck7bhgqfuc84o4sa5pd3g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJtOt5x9affzd0vD382nh7h_8zLFcmif0"
+          "current_key": "AIzaSyDl7XYEbbT_LiXbuswh2pFt9PbcD4lYPAs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1071262598866-niu5rji8kh6dqkh00qmp49e24o7bvaeu.apps.googleusercontent.com",
+              "client_id": "825640105521-8g6m1qdbds5ck7bhgqfuc84o4sa5pd3g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
