@@ -5,5 +5,5 @@
     <string name="nav_tracker">Tracker</string>
     <string name="nav_history">History</string>
     <string name="nav_account">Account</string>
-    <string name="default_web_client_id" />
+
 </resources>
