@@ -6,7 +6,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
@@ -14,6 +17,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -33,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView countView;
     private double MagnitudePrevious = 0;
     private Integer stepCount = 0;
+
+    //notification
+    String TAG = "Main";
+    TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,44 +123,97 @@ public class MainActivity extends AppCompatActivity {
 
         sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
+        txt = findViewById(R.id.txt);
     }
+
+    //notification
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            long millisUntilFinished = intent.getLongExtra("countdown",30000);
+            Log.i(TAG,"Countdown seconds remaining:" + millisUntilFinished / 1000);
+
+            txt.setText( Long.toString(millisUntilFinished / 1000));
+            SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
+
+            sharedPreferences.edit().putLong("time",millisUntilFinished).apply();
+        }
+    }
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Update GUI
+            updateGUI(intent);
+        }
+    };
 
     @Override
     protected void onResume() {
         super.onResume();
+        //animation
         if (animationDrawable != null && !animationDrawable.isRunning()) {
             // start the animation
             animationDrawable.start();
         }
 
+        //step counter
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         stepCount = sharedPreferences.getInt("stepCount", 0);
 
+        //notification
+        registerReceiver(broadcastReceiver,new IntentFilter(BroadcastService.COUNTDOWN_BR));
+        Log.i(TAG,"Registered broadcast receiver");
+        stopService(new Intent(this,BroadcastService.class));
+        Log.i(TAG,"Stopped service");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        //animation
         if (animationDrawable != null && animationDrawable.isRunning()) {
             // stop the animation
             animationDrawable.stop();
         }
 
+        //step counter
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putInt("stepCount", stepCount);
         editor.apply();
+
+        //notification
+        unregisterReceiver(broadcastReceiver);
+        Log.i(TAG,"Unregistered broadcast receiver");
     }
 
     protected void onStop() {
+        //notification
+        try {
+            Intent intent = new Intent(this,BroadcastService.class);
+            startService(intent);
+            Log.i(TAG,"Started Service");
+            unregisterReceiver(broadcastReceiver);
+        } catch (Exception e) {
+            // Receiver was probably already
+        }
         super.onStop();
 
+        //step counter
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putInt("stepCount", stepCount);
         editor.apply();
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        //notification
+
+        super.onDestroy();
     }
 
 }
