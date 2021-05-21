@@ -50,6 +50,13 @@
 
         </androidx.cardview.widget.CardView>
 
+        <com.google.android.gms.common.SignInButton
+            android:layout_width="167dp"
+            android:layout_height="50dp"
+            tools:layout_editor_absoluteX="122dp"
+            tools:layout_editor_absoluteY="337dp" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
