@@ -33,9 +33,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="144dp"
             android:layout_height="144dp"
             android:layout_marginTop="56dp"
+            android:visibility="invisible"
             app:cardCornerRadius="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -43,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/foto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/blank_profile_picture" />
@@ -51,10 +53,68 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.gms.common.SignInButton
-            android:layout_width="167dp"
-            android:layout_height="50dp"
-            tools:layout_editor_absoluteX="122dp"
-            tools:layout_editor_absoluteY="337dp" />
+            android:id="@+id/signin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="142dp"
+            android:layout_marginLeft="142dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="142dp"
+            android:layout_marginRight="142dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email" />
+
+        <Button
+            android:id="@+id/signout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            android:layout_marginLeft="162dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="162dp"
+            android:layout_marginRight="162dp"
+            android:layout_marginBottom="117dp"
+            android:text="Sign Out"
+            android:visibility="invisible"
+            app:backgroundTint="#595959"
+            app:iconTint="#BCBCBC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signin_btn" />
+
+        <TextView
+            android:id="@+id/nama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="111dp"
+            android:layout_marginLeft="111dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="112dp"
+            android:layout_marginRight="112dp"
+            android:text=" "
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="111dp"
+            android:layout_marginLeft="111dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="112dp"
+            android:layout_marginRight="112dp"
+            android:layout_marginBottom="38dp"
+            android:text="Silakan Login Dengan Google "
+            app:layout_constraintBottom_toTopOf="@+id/signin_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nama" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
