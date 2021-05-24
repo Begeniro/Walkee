@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Walkee</string>
+    <string name="nav_tracker">Pelacak</string>
+    <string name="nav_history">Riwayat</string>
+    <string name="nav_account">Akun</string>
+    <string name="header_step_tracker">Pelacak Langkah</string>
+    <string name="steps">Langkah</string>
+    <string name="header_history">Riwayat</string>
+    <string name="history_monthly">Bulanan</string>
+    <string name="history_yearly">Tahunan</string>
+    <string name="header_account">Akun</string>
+</resources>
