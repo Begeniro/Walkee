@@ -5,7 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -39,9 +41,9 @@ public class Akun extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btnSignOut;
     private ImageView foto;
-    private CardView cv;
-    private String nama;
-    private String email;
+//    private CardView cv;
+    private TextView nama;
+    private TextView email;
     private int RC_SIGN_IN = 1;
 
     //background animation
@@ -108,6 +110,9 @@ public class Akun extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         btnSignOut = findViewById(R.id.signout_btn);
         foto = findViewById(R.id.foto);
+        nama= findViewById(R.id.nama);
+        email = findViewById(R.id.email);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -129,7 +134,10 @@ public class Akun extends AppCompatActivity {
                 mGoogleSignInClient.signOut();
                 Toast.makeText(Akun.this, "Logged Out",Toast.LENGTH_SHORT).show();
                 btnSignOut.setVisibility(View.INVISIBLE);
-                cv.setVisibility(View.INVISIBLE);
+                signInButton.setVisibility(View.VISIBLE);
+                nama.setText(" ");
+                email.setText("Silakan masuk kemabli dengan email google");
+//                cv.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -162,7 +170,7 @@ public class Akun extends AppCompatActivity {
 
     private void FirebaseGoogleAuth(GoogleSignInAccount acct){
         AuthCredential authCredential = GoogleAuthProvider.getCredential(acct.getIdToken(),null);
-        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -178,7 +186,8 @@ public class Akun extends AppCompatActivity {
     }
     private void updateUI(FirebaseUser fUser){
         btnSignOut.setVisibility(View.VISIBLE);
-        cv.setVisibility(View.VISIBLE);
+        signInButton.setVisibility(View.INVISIBLE);
+//        cv.setVisibility(View.VISIBLE);
 
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (account!=null){
@@ -188,6 +197,16 @@ public class Akun extends AppCompatActivity {
             String personEmail = account.getEmail();
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
+
+            nama.setText(personName);
+            email.setText(personEmail);
+
+            Glide.with(getApplicationContext()).load(personPhoto)
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(foto);
+
         }
     }
 
