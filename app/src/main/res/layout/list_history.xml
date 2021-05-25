@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="355dp"
     android:layout_height="117dp"
-    android:layout_marginLeft="25dp"
+    android:gravity="center"
     android:background="@drawable/list_history"
     >
 
