@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -87,7 +88,7 @@ public class Akun extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_tracker :
                         startActivity(new Intent(getApplicationContext()
-                            ,Akun.class));
+                            ,MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
 
@@ -197,12 +198,11 @@ public class Akun extends AppCompatActivity {
             String personEmail = account.getEmail();
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
-
+//            Log.d(personPhoto);
             nama.setText(personName);
             email.setText(personEmail);
 
             Glide.with(getApplicationContext()).load(personPhoto)
-                    .thumbnail(0.5f)
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(foto);
