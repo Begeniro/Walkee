@@ -138,6 +138,8 @@ public class Akun extends AppCompatActivity {
                 signInButton.setVisibility(View.VISIBLE);
                 nama.setText(" ");
                 email.setText("Silakan masuk kembali dengan google");
+                foto.setBackgroundResource(R.drawable.blank_profile_picture);
+
 //                cv.setVisibility(View.INVISIBLE);
             }
         });
