@@ -137,7 +137,7 @@ public class Akun extends AppCompatActivity {
                 btnSignOut.setVisibility(View.INVISIBLE);
                 signInButton.setVisibility(View.VISIBLE);
                 nama.setText(" ");
-                email.setText("Silakan masuk kemabli dengan email google");
+                email.setText("Silakan masuk kembali dengan google");
 //                cv.setVisibility(View.INVISIBLE);
             }
         });
@@ -194,12 +194,13 @@ public class Akun extends AppCompatActivity {
         });
     }
     private void updateUI(FirebaseUser fUser){
-        btnSignOut.setVisibility(View.VISIBLE);
-        signInButton.setVisibility(View.INVISIBLE);
+
 //        cv.setVisibility(View.VISIBLE);
 
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (account!=null){
+            btnSignOut.setVisibility(View.VISIBLE);
+            signInButton.setVisibility(View.INVISIBLE);
             String personName = account.getDisplayName();
             String personGivenName = account.getGivenName();
             String personFamilyName = account.getFamilyName();
@@ -207,6 +208,7 @@ public class Akun extends AppCompatActivity {
             String personId = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 //            Log.d(personPhoto);
+
             nama.setText(personName);
             email.setText(personEmail);
 
