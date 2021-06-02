@@ -5,13 +5,16 @@
     <item
         android:id="@+id/nav_tracker"
         android:icon="@drawable/ic_component_3"
+        android:iconTint="@color/biru"
         android:title="@string/nav_tracker" />
     <item
         android:id="@+id/nav_history"
         android:icon="@drawable/ic_clockcounterclockwise"
+        android:iconTint="@color/biru"
         android:title="@string/nav_history" />
     <item
         android:id="@+id/nav_account"
         android:icon="@drawable/ic_user"
+        android:iconTint="@color/biru"
         android:title="@string/nav_account" />
 </menu>
