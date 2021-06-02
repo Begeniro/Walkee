@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.content.Intent;
+import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
     //background animation
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         txt = findViewById(R.id.txt);
+
     }
 
     //notification
