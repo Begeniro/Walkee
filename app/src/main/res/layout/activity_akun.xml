@@ -111,7 +111,7 @@
             android:layout_marginEnd="112dp"
             android:layout_marginRight="112dp"
             android:layout_marginBottom="38dp"
-            android:text="Silakan Login dengan Google "
+            android:text="Silakan masuk dengan Google "
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/signin_btn"
             app:layout_constraintEnd_toEndOf="parent"
