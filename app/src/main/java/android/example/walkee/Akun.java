@@ -139,7 +139,6 @@ public class Akun extends AppCompatActivity {
                 nama.setText(" ");
                 email.setText("Silakan masuk kembali dengan google");
                 Glide.with(getApplicationContext()).load(R.drawable.blank_profile_picture)
-                        .crossFade()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(foto);
 
@@ -218,7 +217,6 @@ public class Akun extends AppCompatActivity {
             email.setText(personEmail);
 
             Glide.with(getApplicationContext()).load(personPhoto)
-                    .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(foto);
 
