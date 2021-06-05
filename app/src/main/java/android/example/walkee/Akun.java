@@ -3,15 +3,15 @@ package android.example.walkee;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+//import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+//import com.bumptech.glide.Glide;
+//import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +33,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.squareup.picasso.Picasso;
 
 public class Akun extends AppCompatActivity {
     //Login
@@ -138,9 +139,11 @@ public class Akun extends AppCompatActivity {
                 signInButton.setVisibility(View.VISIBLE);
                 nama.setText(" ");
                 email.setText("Silakan masuk kembali dengan google");
-                Glide.with(getApplicationContext()).load(R.drawable.blank_profile_picture)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(foto);
+                Picasso.get().load(R.drawable.blank_profile_picture).into(foto);
+
+//                Glide.with(getApplicationContext()).load(R.drawable.blank_profile_picture)
+//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                        .into(foto);
 
 //                cv.setVisibility(View.INVISIBLE);
             }
@@ -215,10 +218,16 @@ public class Akun extends AppCompatActivity {
 
             nama.setText(personName);
             email.setText(personEmail);
-
-            Glide.with(getApplicationContext()).load(personPhoto)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//            Picasso.get().load(personPhoto).into(foto);
+            Picasso.get()
+                    .load(personPhoto)
+                    .resize(500, 500)
+                    .centerCrop()
+                    .error(R.drawable.blank_profile_picture)
                     .into(foto);
+//            Glide.with(getApplicationContext()).load(personPhoto)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(foto);
 
         }
     }
