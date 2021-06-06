@@ -51,7 +51,7 @@ public class BroadcastService extends Service {
 
         Log.i(TAG,"Starting timer...");
         sharedPreferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
-        long millis = sharedPreferences.getLong("time",3000);
+        long millis = sharedPreferences.getLong("time",10000);
         if (millis / 1000 == 0) {
             millis = 10000;
         }

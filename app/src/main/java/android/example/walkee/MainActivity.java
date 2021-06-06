@@ -6,6 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.content.Intent;
 import android.os.Handler;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     //background animation
     private ConstraintLayout constraintLayout;
@@ -36,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mMainNav;
 
     //step counter
-    private TextView countView;
+    private TextView countView, kmView, calView;
     private double MagnitudePrevious = 0;
-    private Integer stepCount = 0;
+    public Integer stepCount = 0;
+    private double kmCount = 0;
+    private double calCount = 0;
 
     //notification
     String TAG = "Main";
@@ -96,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
         //step counter
         countView = findViewById(R.id.textViewCounter);
+        kmView = findViewById(R.id.textViewKm);
+        calView = findViewById(R.id.textViewCal);
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
@@ -113,8 +121,13 @@ public class MainActivity extends AppCompatActivity {
 
                     if (MagnitudeDelta > 6){
                         stepCount++;
+                        kmCount = stepCount * 0.0008;
+                        calCount = stepCount * 0.0035;
+
                     }
                     countView.setText(stepCount.toString());
+                    kmView.setText(String.format("%.2f", kmCount));
+                    calView.setText(String.format("%.2f", calCount));
                 }
             }
 
@@ -127,6 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
         txt = findViewById(R.id.txt);
 
+        dailyReset(getApplicationContext());
+    }
+
+    public void dailyReset(Context context) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 22);
+        cal.set(Calendar.MINUTE, 27);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 1000*60*60*24, pi);
     }
 
     //notification
@@ -148,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             updateGUI(intent);
         }
     };
+
 
     @Override
     protected void onResume() {

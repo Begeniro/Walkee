@@ -35,6 +35,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.squareup.picasso.Picasso;
 
+
 public class Akun extends AppCompatActivity {
     //Login
     private SignInButton signInButton;
@@ -43,6 +44,8 @@ public class Akun extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btnSignOut;
     private ImageView foto;
+
+
 //    private CardView cv;
     private TextView nama;
     private TextView email;
@@ -100,7 +103,6 @@ public class Akun extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_account :
-
                         return true;
                 }
                 return false;
@@ -218,7 +220,7 @@ public class Akun extends AppCompatActivity {
 
             nama.setText(personName);
             email.setText(personEmail);
-//            Picasso.get().load(personPhoto).into(foto);
+            Picasso.get().load(personPhoto).into(foto);
             Picasso.get()
                     .load(personPhoto)
                     .resize(500, 500)
