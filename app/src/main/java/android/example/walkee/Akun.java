@@ -194,6 +194,8 @@ public class Akun extends AppCompatActivity {
         updateUI(currentUser);
     }
 
+
+
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
