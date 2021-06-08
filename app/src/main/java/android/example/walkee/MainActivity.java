@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     //step counter
     private TextView countView, kmView, calView;
     private double MagnitudePrevious = 0;
-    public Integer stepCount = 0;
+    private Integer stepCount = 0;
     private double kmCount = 0;
     private double calCount = 0;
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "Main";
     TextView txt;
 
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,20 +138,23 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(stepDetector, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         txt = findViewById(R.id.txt);
-
+        calendar = Calendar.getInstance();
         dailyReset(MainActivity.this);
+
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        date = dateFormat.format(calendar.getTime());
+        Log.i("DATE",date);
 
     }
 
     public void dailyReset(Context context) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 11);
-        cal.set(Calendar.MINUTE, 11);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 11);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 1000*60*60*24, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000*60*60*24, pi);
     }
 
     //notification
@@ -183,7 +190,13 @@ public class MainActivity extends AppCompatActivity {
 
         //step counter
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        stepCount = sharedPreferences.getInt("stepCount", 0);
+        if(!sharedPreferences.getString("date","").equals(date)) {
+            SharedPreferences editor = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
+            editor.edit().clear().commit();
+            stepCount = 0;
+        }else {
+            stepCount = sharedPreferences.getInt("stepCount", 0);
+        }
 
         //notification
         registerReceiver(broadcastReceiver,new IntentFilter(BroadcastService.COUNTDOWN_BR));
@@ -206,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putInt("stepCount", stepCount);
+        editor.putString("date",date);
         editor.apply();
 
         //notification
@@ -230,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putInt("stepCount", stepCount);
+        editor.putString("date",date);
         editor.apply();
 
 
