@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "Main";
     TextView txt;
 
+    //date
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         dailyReset(MainActivity.this);
 
+        //get DATE
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         date = dateFormat.format(calendar.getTime());
         Log.i("DATE",date);
@@ -190,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
         //step counter
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        //DATE check
         if(!sharedPreferences.getString("date","").equals(date)) {
             SharedPreferences editor = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
             editor.edit().clear().commit();
@@ -219,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putInt("stepCount", stepCount);
+        //date save
         editor.putString("date",date);
         editor.apply();
 
@@ -244,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.putInt("stepCount", stepCount);
+        //date save
         editor.putString("date",date);
         editor.apply();
 
