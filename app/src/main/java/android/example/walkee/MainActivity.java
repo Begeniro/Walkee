@@ -1,11 +1,5 @@
 package android.example.walkee;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -21,13 +15,13 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.content.Intent;
-import android.os.Handler;
 
 import java.util.Calendar;
 
@@ -49,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     //notification
     String TAG = "Main";
     TextView txt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,13 +135,14 @@ public class MainActivity extends AppCompatActivity {
 
         txt = findViewById(R.id.txt);
 
-        dailyReset(getApplicationContext());
+        dailyReset(MainActivity.this);
+
     }
 
     public void dailyReset(Context context) {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 22);
-        cal.set(Calendar.MINUTE, 27);
+        cal.set(Calendar.HOUR_OF_DAY, 11);
+        cal.set(Calendar.MINUTE, 11);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -166,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             sharedPreferences.edit().putLong("time",millisUntilFinished).apply();
         }
     }
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
