@@ -31,10 +31,12 @@ public class HistoryAdapter extends ArrayAdapter<HistoryItems> {
 
         HistoryItems currentHistory = getItem(position);
 
+        TextView day = (TextView) convertView.findViewById(R.id.day_history);
+        day.setText(currentHistory.getDay());
         TextView steps = (TextView) convertView.findViewById(R.id.steps_history);
         steps.setText(currentHistory.getSteps());
-        TextView mil = (TextView) convertView.findViewById(R.id.mil_history);
-        mil.setText(currentHistory.getMil());
+        TextView mil = (TextView) convertView.findViewById(R.id.km_history);
+        mil.setText(currentHistory.getKm());
         TextView cal = (TextView) convertView.findViewById(R.id.cal_history);
         cal.setText(currentHistory.getCal());
 

@@ -11,15 +11,24 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Riwayat extends AppCompatActivity {
@@ -30,39 +39,81 @@ public class Riwayat extends AppCompatActivity {
     //bottom navigation
     private BottomNavigationView mMainNav;
 
+    private TextView month;
+
     //listview history
     ArrayList<HistoryItems> history = new ArrayList<>();
     ListView listView;
     DatabaseReference database;
+
+    private FirebaseAuth mAuth;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riwayat);
 
+        TextView month = findViewById(R.id.month_A);
+
         //listview history
         listView = findViewById(R.id.list_view);
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance().getReference("users");
+
+        //date
+        Date dateD =Calendar.getInstance().getTime();
+        //Month
+        DateFormat Monthformatter = new SimpleDateFormat("MMMM");
+        String currentMonth = Monthformatter.format(dateD);
+        //Day
+        DateFormat Dayformatter = new SimpleDateFormat("dd");
+        String currentDay = Dayformatter.format(dateD);
 
         //firebase
-        database.child("history").child("user1").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                history.clear();
-                for (DataSnapshot historys : snapshot.getChildren()){
-                    HistoryItems historyclass = historys.getValue(HistoryItems.class);
-                    Log.d("zxy", "cek " + historyclass.getSteps());
-                    history.add(historyclass);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String currentuser = mAuth.getInstance().getCurrentUser().getUid();
+            database.child(currentuser).child(currentMonth).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    history.clear();
+                    for (DataSnapshot historys : snapshot.getChildren()){
+                        HistoryItems historyclass = historys.getValue(HistoryItems.class);
+                        Log.d("zxy", "cek " + historyclass.getDay());
+                        history.add(historyclass);
+                    }
+                    HistoryAdapter historyAdapter = new HistoryAdapter(Riwayat.this, history) ;
+                    listView.setAdapter(historyAdapter);
                 }
-                HistoryAdapter historyAdapter = new HistoryAdapter(Riwayat.this, history) ;
-                listView.setAdapter(historyAdapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }else{
+            database.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    history.clear();
+                    for (DataSnapshot historys : snapshot.getChildren()) {
+                        HistoryItems historyclass = historys.getValue(HistoryItems.class);
+                        Log.d("zxy", "cek " + historyclass.getDay());
+                        history.add(historyclass);
+                    }
+                    HistoryAdapter historyAdapter = new HistoryAdapter(Riwayat.this, history);
+                    listView.setAdapter(historyAdapter);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+        month.setText(currentMonth);
 
         //no action bar
         getSupportActionBar().hide();
