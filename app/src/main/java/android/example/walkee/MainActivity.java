@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
+    private int stringLimit = 3;
 
     //firebase
     private FirebaseAuth mAuth;
@@ -181,25 +182,34 @@ public class MainActivity extends AppCompatActivity {
         Date dateD =Calendar.getInstance().getTime();
         //Month
         DateFormat Monthformatter = new SimpleDateFormat("MMMM");
-        String currentMonth = Monthformatter.format(dateD);
+        String currentMonth = Monthformatter.format(dateD).substring(0,stringLimit);
         //Day
         DateFormat Dayformatter = new SimpleDateFormat("dd");
         String currentDay = Dayformatter.format(dateD);
+        //Year
+        DateFormat Yearformatter = new SimpleDateFormat("yyyy");
+        String currentYear = Yearformatter.format(dateD);
 
         String dayC = currentDay;
+        String monthC = currentMonth.substring(0,stringLimit);
+        String yearC = currentYear;
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
             FirebaseDatabase database= FirebaseDatabase.getInstance();
             //Updated Data
-            DatabaseReference day = database.getReference("users").child(currentuser).child(currentMonth).child(currentDay).child("day");
+            DatabaseReference day = database.getReference("users").child(currentuser).child(currentYear).child(currentMonth).child(currentDay).child("day");
             day.setValue(dayC);
-            DatabaseReference step = database.getReference("users").child(currentuser).child(currentMonth).child(currentDay).child("steps");
+            DatabaseReference month = database.getReference("users").child(currentuser).child(currentYear).child(currentMonth).child(currentDay).child("month");
+            month.setValue(monthC);
+            DatabaseReference year = database.getReference("users").child(currentuser).child(currentYear).child(currentMonth).child(currentDay).child("year");
+            year.setValue(yearC);
+            DatabaseReference step = database.getReference("users").child(currentuser).child(currentYear).child(currentMonth).child(currentDay).child("steps");
             step.setValue(stepC);
-            DatabaseReference km = database.getReference("users").child(currentuser).child(currentMonth).child(currentDay).child("km");
+            DatabaseReference km = database.getReference("users").child(currentuser).child(currentYear).child(currentMonth).child(currentDay).child("km");
             km.setValue(kmC);
-            DatabaseReference cal = database.getReference("users").child(currentuser).child(currentMonth).child(currentDay).child("cal");
+            DatabaseReference cal = database.getReference("users").child(currentuser).child(currentYear).child(currentMonth).child(currentDay).child("cal");
             cal.setValue(calC);
         }else {
 

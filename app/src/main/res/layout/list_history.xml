@@ -16,14 +16,46 @@
         android:id="@+id/day_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text="30"
         android:fontFamily="@font/roboto"
         android:textColor="@color/black"
         android:textSize="38sp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="45dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="65dp"
         android:gravity="center"
         android:background="@drawable/day_bg"
+        />
+
+    <TextView
+        android:id="@+id/month_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="7dp"
+        android:width="60dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="June"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:rotation="270"
+        android:transformPivotX="32dp"
+        android:transformPivotY="13dp"
+        />
+
+    <TextView
+        android:id="@+id/year_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="25dp"
+        android:width="45dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="2021"
+        android:textColor="@color/biru"
+        android:textSize="8sp"
+        android:rotation="270"
         />
 
     <TextView
@@ -39,9 +71,10 @@
         android:layout_marginRight="153dp"
         android:fontFamily="@font/roboto"
         android:text="Steps"
+        android:layout_marginTop="-3dp"
         android:textAlignment="center"
         android:textColor="@color/kelabu3"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:gravity="center_horizontal" />
 
     <TextView
@@ -54,14 +87,14 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="130dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="130dp"
         android:layout_marginRight="130dp"
         android:fontFamily="@font/roboto"
-        android:text="1175"
+        android:text="900"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:gravity="center_horizontal" />
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +114,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/roboto"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="@color/kelabu3"
         android:text="300"
         />
     <View
@@ -90,7 +123,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="290dp"
-        android:background="@color/kelabu"
+        android:background="@color/biru"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -112,7 +145,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/roboto"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="@color/kelabu3"
         android:text="20"
         />
 </RelativeLayout>

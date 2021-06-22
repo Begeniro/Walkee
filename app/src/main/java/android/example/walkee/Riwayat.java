@@ -4,22 +4,28 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
@@ -39,7 +45,10 @@ public class Riwayat extends AppCompatActivity {
     //bottom navigation
     private BottomNavigationView mMainNav;
 
-    private TextView month;
+    private Button month;
+    private TextView year;
+    private Button datePicker;
+    private int stringLimit = 3;
 
     //listview history
     ArrayList<HistoryItems> history = new ArrayList<>();
@@ -55,7 +64,7 @@ public class Riwayat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riwayat);
 
-        TextView month = findViewById(R.id.month_A);
+        month = findViewById(R.id.buttonMont);
 
         //listview history
         listView = findViewById(R.id.list_view);
@@ -65,16 +74,19 @@ public class Riwayat extends AppCompatActivity {
         Date dateD =Calendar.getInstance().getTime();
         //Month
         DateFormat Monthformatter = new SimpleDateFormat("MMMM");
-        String currentMonth = Monthformatter.format(dateD);
+        String currentMonth = Monthformatter.format(dateD).substring(0,stringLimit);
         //Day
         DateFormat Dayformatter = new SimpleDateFormat("dd");
         String currentDay = Dayformatter.format(dateD);
+        //Year
+        DateFormat Yearformatter = new SimpleDateFormat("yyyy");
+        String currentYear = Yearformatter.format(dateD);
 
         //firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String currentuser = mAuth.getInstance().getCurrentUser().getUid();
-            database.child(currentuser).child(currentMonth).addListenerForSingleValueEvent(new ValueEventListener() {
+            database.child(currentuser).child(currentYear).child(currentMonth).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     history.clear();
@@ -112,8 +124,6 @@ public class Riwayat extends AppCompatActivity {
                 }
             });
         }
-
-        month.setText(currentMonth);
 
         //no action bar
         getSupportActionBar().hide();
@@ -157,6 +167,80 @@ public class Riwayat extends AppCompatActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+
+
+
+        datePicker =findViewById(R.id.buttonMont);
+        //MaterialDatePicker
+        MaterialDatePicker.Builder dateMbuilder= MaterialDatePicker.Builder.datePicker();
+        dateMbuilder.setTitleText("Select a Date");
+        dateMbuilder.setTheme(R.style.ThemeOverlay_App_DatePicker);
+        MaterialDatePicker<Long> materialDatePicker = dateMbuilder.build();
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+            }
+        });
+
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+                String mDateSelected = materialDatePicker.getHeaderText();
+                String montLimit = mDateSelected.substring(0,stringLimit);
+
+                int midCharsStart = ((mDateSelected.length() + 2) / 2) - 3;
+                int midCharsEnd = midCharsStart + 2;
+                String SpacedayLimit = mDateSelected.substring(midCharsStart, midCharsEnd);
+                String dayLimit = SpacedayLimit.substring(SpacedayLimit.indexOf(' ') + 1);
+
+                if (dayLimit != null) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        String currentuser = mAuth.getInstance().getCurrentUser().getUid();
+                        database.child(currentuser).child(currentYear).child(montLimit).orderByKey().equalTo(dayLimit).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                history.clear();
+                                for (DataSnapshot historys : snapshot.getChildren()){
+                                    HistoryItems historyclass = historys.getValue(HistoryItems.class);
+                                    Log.d("zxy", "cek " + historyclass.getDay());
+                                    history.add(historyclass);
+                                }
+                                HistoryAdapter historyAdapter = new HistoryAdapter(Riwayat.this, history) ;
+                                listView.setAdapter(historyAdapter);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }else{
+                        database.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                history.clear();
+                                for (DataSnapshot historys : snapshot.getChildren()) {
+                                    HistoryItems historyclass = historys.getValue(HistoryItems.class);
+                                    Log.d("zxy", "cek " + historyclass.getDay());
+                                    history.add(historyclass);
+                                }
+                                HistoryAdapter historyAdapter = new HistoryAdapter(Riwayat.this, history);
+                                listView.setAdapter(historyAdapter);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                }
+                //month.setText(mDateSelected);
+            }else {
+                }
             }
         });
 
