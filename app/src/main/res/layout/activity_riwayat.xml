@@ -30,40 +30,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100sp"
-            android:layout_marginLeft="100sp"
-            android:fontFamily="@font/roboto"
-            android:textSize="14dp"
-            android:textColor="@color/white"
-            android:textFontWeight="500"
-            android:text="@string/history_monthly"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="100sp"
-            android:layout_marginRight="100sp"
-            android:fontFamily="@font/roboto"
-            android:textSize="14dp"
-            android:textColor="@color/white"
-            android:textFontWeight="500"
-            android:text="@string/history_yearly"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
             android:foregroundGravity="center"
             android:background="@drawable/content_bg"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -71,50 +42,60 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textView"
+            <Button
+                android:id="@+id/buttonMont"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                android:textColor="@color/black"
-                android:text="Month"
+                android:text="Search by Date"
+                android:textSize="17sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/teal_200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:ignore="MissingConstraints" />
 
-            <ImageButton
+            <Button
+                android:id="@+id/lastMonthButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="#00000000"
-                android:src="@drawable/ic_baseline_play_arrow_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.15"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="#00000000"
-                android:rotation="180"
-                android:src="@drawable/ic_baseline_play_arrow_24"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="0.85"
+                android:width="5dp"
+                android:height="10dp"
+                android:text="Last Month"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/kelabu3"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/buttonMont"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/thisMonthButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="5dp"
+                android:height="10dp"
+                android:text="This Month"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/kelabu3"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/buttonMont"
+                tools:ignore="MissingConstraints" />
 
             <ListView
                 android:id="@+id/list_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonMont" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

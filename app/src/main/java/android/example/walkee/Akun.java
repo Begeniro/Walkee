@@ -168,7 +168,6 @@ public class Akun extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -193,8 +192,6 @@ public class Akun extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
-
-
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
